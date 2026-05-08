@@ -1,0 +1,456 @@
+/* ==================== Palette "Spotify Style" ==================== */
+:root {
+    --bg-color: #121212;       /* Noir très profond (Fond principal) */
+    --panel-bg: #181818;       /* Gris très sombre (Fond des cartes) */
+    --panel-hover: #282828;    /* Gris un peu plus clair au survol */
+    --text-main: #FFFFFF;      /* Blanc pur pour le texte principal */
+    --text-muted: #B3B3B3;     /* Gris clair pour les dates et sous-titres */
+    --accent: #1DB954;         /* Le vrai Vert Spotify */
+    --accent-hover: #1ed760;   /* Vert légèrement plus clair au survol */
+    --danger: #e91429;         /* Rouge pour les alertes */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police moderne et propre */
+    background: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+p {
+    margin-bottom: 1rem;
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 1rem;
+    margin-top: 1.5rem; /* Un peu d'espace au-dessus des titres pour aérer */
+}
+
+/* Pour que le tout premier titre d'une boîte ne soit pas trop bas */
+h1:first-child, h2:first-child, h3:first-child {
+    margin-top: 0;
+}
+
+ul, ol {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem; /* Recadre les puces de listes */
+}
+/* ==================== Correction des Liens (Fini le bleu !) ==================== */
+a, a:link, a:visited {
+    color: var(--text-main);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* ==================== Header & Navigation ==================== */
+header {
+    background: #000000; /* Le haut de Spotify est souvent noir pur */
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: 1px;
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: var(--text-muted);
+    font-weight: 600;
+    transition: color 0.2s ease; /* Rend le changement de couleur fluide */
+}
+
+nav a:hover {
+    color: var(--accent); /* Le texte devient Vert Spotify au survol ! */
+}
+
+/* ==================== Main Container & Typographie ==================== */
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1, h2, h3 {
+    color: var(--text-main);
+    font-weight: 700;
+    letter-spacing: -0.5px; /* Rapproche légèrement les lettres pour un effet moderne */
+}
+
+/* ==================== Flash Messages ==================== */
+.flash-messages {
+    margin-bottom: 2rem;
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 4px;
+    background: var(--danger);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alert.success {
+    background: var(--accent);
+}
+
+/* ==================== Boutons ==================== */
+.btn {
+    padding: 12px 32px;
+    border-radius: 500px; /* Bordures très arrondies typiques de Spotify */
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #000000; /* Texte noir sur fond vert pour un contraste parfait */
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: scale(1.04); /* Grossit légèrement au survol */
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--text-muted);
+}
+
+.btn-secondary:hover {
+    border-color: var(--text-main);
+    transform: scale(1.04);
+}
+
+/* ==================== Posts & Feed Styles ==================== */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.text-muted {
+    color: var(--text-muted);
+}
+
+.posts-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.post-card, .card, .form-container {
+    background: var(--panel-bg);
+    border-radius: 8px; /* Coins légèrement arrondis */
+    padding: 1.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.post-card:hover {
+    background: var(--panel-hover); /* S'éclaircit légèrement au passage de la souris */
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    background: var(--panel-hover);
+    border-radius: 50%; /* Avatar rond */
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.post-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.author-name:hover {
+    text-decoration: underline; /* Standard du web pour les noms d'utilisateurs */
+}
+
+.post-date {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.post-content {
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tag {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.tag:hover {
+    color: var(--text-main);
+}
+
+.post-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.action-btn:hover {
+    color: var(--text-main); /* Devient blanc au survol */
+}
+
+/* ==================== Forms (Inputs & Selects) ==================== */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: #3E3E3E; /* Gris moyen pour les champs de saisie */
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    margin-bottom: 1.5rem;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #727272;
+    background: #4A4A4A;
+}
+
+/* ==================== Utility Classes ==================== */
+.text-center { text-align: center; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-4 { margin-top: 2rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+
+.features-grid {
+    display: grid;
+    /* Force exactement 3 colonnes de taille égale, comme sur votre photo */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: var(--panel-bg);
+    padding: 2rem;
+    border-radius: 8px; /* Coins arrondis subtils comme sur l'image */
+    border: 1px solid #282828; /* Fine bordure pour délimiter la carte */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligne TOUT à gauche (icône, titre, texte) */
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    background: var(--panel-hover);
+    transform: translateY(-4px); /* Petit soulèvement au survol */
+    border-color: var(--accent); /* La bordure devient verte au survol */
+}
+
+/* L'icône en haut à gauche */
+.feature-icon {
+    font-size: 2.5rem; /* Rend l'emoji bien grand */
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+/* Le Titre */
+.feature-card h3 {
+    margin-top: 0;
+    color: var(--text-main); /* Titre en blanc, ou mettez var(--accent) pour du vert */
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+/* Le Texte */
+.feature-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1; /* Pousse les liens vers le bas si le texte est court */
+}
+
+/* Les liens "Voir les Items ->" etc. */
+.feature-card a {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+.feature-card a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* --- Responsivité (Pour que ça reste beau sur petit écran) --- */
+@media (max-width: 900px) {
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur tablette */
+    }
+}
+
+@media (max-width: 600px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* 1 seule colonne sur téléphone */
+    }
+}
+.feature-card {
+    /* (Ne touchez pas au reste de votre code .feature-card, ajoutez juste ceci en dessous) */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* --- Carte 1 : Items --- */
+.bg-items {
+    /* Remplacez 'items.jpg' par le nom de votre image */
+    background-image: linear-gradient(rgba(24, 24, 24, 0.6), rgba(24, 24, 24, 0.95)), url('wiki.jpg');
+}
+
+/* --- Carte 2 : Communauté --- */
+.bg-community {
+    background-image: linear-gradient(rgba(24, 24, 24, 0.6), rgba(24, 24, 24, 0.95)), url('community.jpg');
+}
+
+/* --- Carte 3 : Profil --- */
+.bg-profile {
+    background-image: linear-gradient(rgba(24, 24, 24, 0.6), rgba(24, 24, 24, 0.95)), url('profile.jpg');
+}
+
+/* --- Carte 4 : Marché --- */
+.bg-market {
+    background-image: linear-gradient(rgba(24, 24, 24, 0.6), rgba(24, 24, 24, 0.95)), url('market.jpg');
+}
+
+/* --- Carte 5 : Groupes --- */
+.bg-groups {
+    background-image: linear-gradient(rgba(24, 24, 24, 0.6), rgba(24, 24, 24, 0.95)), url('groups.jpg');
+}
+
+/* --- Carte 6 : Explorer --- */
+.bg-explore {
+    background-image: linear-gradient(rgba(24, 24, 24, 0.6), rgba(24, 24, 24, 0.95)), url('explore.jpg');
+}
+
+/* Effet au survol (Optionnel mais stylé) */
+.feature-card:hover {
+    /* Quand on passe la souris, le filtre noir devient un peu plus clair (0.4) pour "illuminer" l'image */
+    background-image: linear-gradient(rgba(24, 24, 24, 0.4), rgba(24, 24, 24, 0.9));
+}
+/* Target the logo image */
+.site-logo {
+    max-height: 50px; /* Adjust this number to make your logo bigger or smaller */
+    width: auto;      /* Keeps the proportions perfect */
+    display: block;   
+    transition: transform 0.2s ease; /* Smooth animation setup */
+}
+
+/* Optional: Make it slightly grow when hovered over */
+.site-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Vertically center it with your navigation links */
+.logo-container a {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Removes any weird underlines from the link */
+}
