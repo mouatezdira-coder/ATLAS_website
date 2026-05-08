@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+  <div>
+    <h1>🎮 Catalogue des Items</h1>
+    <p>Découvrez tous les items disponibles dans le jeu ATLAS</p>
+  </div>
+
+  <!-- Filters -->
+  <div>
+    <div>
+      <label for="search-input">Rechercher:</label>
+      <input type="text" id="search-input" value="{{ search_query }}" placeholder="Nom ou description..." onkeypress="handleEnter(event)">
+    </div>
+
+    <div>
+      <label for="type-filter">Type d'item:</label>
+      <select id="type-filter" onchange="filterItems()">
+        <option value="">Tous les types</option>
+        {% for type_val in types %}
+        <option value="{{ type_val[0] }}" {% if selected_type == type_val[0] %}selected{% endif %}>
+          {{ type_val[0] }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    
+    <div>
+      <label for="rarity-filter">Rareté:</label>
+      <select id="rarity-filter" onchange="filterItems()">
+        <option value="">Toutes les raretés</option>
+        {% for rarity in rarities %}
+        <option value="{{ rarity[0] }}" {% if selected_rarity == rarity[0] %}selected{% endif %}>
+          {{ rarity[0] }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div>
+        <label>&nbsp;</label>
+        <button onclick="filterItems()">Filtrer</button>
+    </div>
+  </div>
+
+  <script>
+  function handleEnter(e) {
+    if (e.key === 'Enter') {
+      filterItems();
+    }
+  }
+
+  function filterItems() {
+    const search = document.getElementById('search-input').value;
+    const typeFilter = document.getElementById('type-filter').value;
+    const rarityFilter = document.getElementById('rarity-filter').value;
+    
+    let url = '{{ url_for("items") }}?';
+    if (search) url += 'search=' + encodeURIComponent(search) + '&';
+    if (typeFilter) url += 'type=' + encodeURIComponent(typeFilter) + '&';
+    if (rarityFilter) url += 'rarity=' + encodeURIComponent(rarityFilter) + '&';
+    
+    window.location.href = url;
+  }
+  </script>
+
+  <!-- Items Grid -->
+  {% if items %}
+  <div>
+    {% for item in items %}
+    <div>
+      <div>
+        <h3>{{ item[1] }}</h3>
+        <span>{{ item[3] }}</span>
+      </div>
+      
+      <div>
+        <div>
+          <strong>Type:</strong> {{ item[2] }}
+        </div>
+        
+        {% if item[4] %}
+        <div>
+          <strong>Zone de Drop:</strong> {{ item[4] }}
+        </div>
+        {% endif %}
+        
+        {% if item[5] %}
+        <div>
+          <p>{{ item[5] }}</p>
+        </div>
+        {% endif %}
+      </div>
+      
+      <div>
+        <a href="{{ url_for('item_detail', item_id=item[0]) }}">
+          Voir Détails
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div>
+    <p>Aucun item trouvé avec ces filtres.</p>
+    <a href="{{ url_for('items') }}">Réinitialiser les filtres</a>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+function filterItems() {
+  const typeFilter = document.getElementById('type-filter').value;
+  const rarityFilter = document.getElementById('rarity-filter').value;
+  
+  let url = '{{ url_for("items") }}?';
+  if (typeFilter) url += 'type=' + typeFilter + '&';
+  if (rarityFilter) url += 'rarity=' + rarityFilter + '&';
+  
+  window.location.href = url;
+}
+</script>
+{% endblock %}

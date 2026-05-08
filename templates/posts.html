@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+  <div>
+    <div>
+      <h1>📝 Communauté - Posts</h1>
+      <p>Partagez vos aventures et vos découvertes avec la communauté ATLAS</p>
+    </div>
+    
+    {% if session.user_id %}
+    <a href="{{ url_for('create_post') }}">
+      ✏️ Créer un Post
+    </a>
+    {% endif %}
+  </div>
+
+  <!-- Posts Feed -->
+  {% if posts %}
+  <div>
+    {% for post in posts %}
+    <div>
+      <div>
+        <div>
+          <div>{{ post[5][0].upper() }}</div>
+          <div>
+            <a href="{{ url_for('profile', user_id=post[4]) }}">
+              {{ post[5] }}
+            </a>
+            <span>{{ post[3].strftime('%d/%m/%Y') if post[3] else 'N/A' }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <p>{{ post[1] }}</p>
+      </div>
+      
+      {% if post[2] %}
+      <div>
+        {% for tag in post[2].split(',') %}
+        <span>#{{ tag.strip() }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+      
+      <div>
+        <button>
+          <span>👍</span> <span>0</span>
+        </button>
+        <button>
+          <span>💬</span> <span>0</span>
+        </button>
+        <button>
+          <span>🔗</span>
+        </button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div>
+    <p>Aucun post pour le moment...</p>
+    {% if session.user_id %}
+    <a href="{{ url_for('create_post') }}">
+      Soyez le premier à poster !
+    </a>
+    {% else %}
+    <p>
+      <a href="{{ url_for('login') }}">Connectez-vous</a> pour créer un post
+    </p>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

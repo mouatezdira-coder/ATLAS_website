@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+  <div>
+    <h1>✏️ Créer un Post</h1>
+    
+    <form method="POST">
+      <div>
+        <label for="contenu">Votre Contenu *</label>
+        <textarea 
+          id="contenu" 
+          name="contenu" 
+          placeholder="Partagez vos aventures, vos découvertes, vos questions..." 
+          required
+          rows="8"
+        ></textarea>
+        <small>Minimum 10 caractères</small>
+      </div>
+      
+      <div>
+        <label for="hashtags">Hashtags (optionnel)</label>
+        <input 
+          type="text" 
+          id="hashtags" 
+          name="hashtags" 
+          placeholder="Exemple: aventure, découverte, aide (séparés par des virgules)"
+        />
+        <small>Séparez les hashtags par des virgules</small>
+      </div>
+      
+      <div>
+        <button type="submit">
+          Publier le Post
+        </button>
+        <a href="{{ url_for('posts') }}">
+          Annuler
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

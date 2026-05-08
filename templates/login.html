@@ -1,0 +1,30 @@
+{% extends "layout.html" %} {% block content %}
+<div>
+  <div>
+    <div>
+      <h3>Connexion</h3>
+      <form method="post">
+        <div>
+          <label>email</label>
+          <input type="email" name="email" required />
+        </div>
+        <div>
+          <label>Mot de passe</label>
+          <input
+            type="password"
+            name="password"
+            required
+          />
+        </div>
+        <div>
+          <button type="submit">Se connecter</button>
+        </div>
+      </form>
+
+      <div>
+        <a href="/signup">Créer un compte</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
