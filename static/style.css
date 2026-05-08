@@ -454,3 +454,113 @@ input:focus, select:focus, textarea:focus {
     align-items: center;
     text-decoration: none; /* Removes any weird underlines from the link */
 }
+/* ==================== Interface de Chat (Discussion) ==================== */
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--panel-hover);
+    padding-bottom: 1rem;
+}
+
+.chat-box {
+    background: var(--panel-bg);
+    border-radius: 12px;
+    border: 1px solid var(--panel-hover);
+    display: flex;
+    flex-direction: column;
+    height: 65vh; /* La boîte prend 65% de la hauteur de l'écran */
+    overflow: hidden; /* Empêche le contenu de déborder de la boîte */
+}
+
+/* --- La zone qui scrolle --- */
+.chat-messages {
+    flex-grow: 1; /* Prend tout l'espace disponible */
+    padding: 1.5rem;
+    overflow-y: auto; /* Active la barre de défilement verticale */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- L'alignement des messages --- */
+.message-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.message-wrapper.me {
+    justify-content: flex-end; /* Aligne mes messages à droite */
+}
+
+.message-wrapper.them {
+    justify-content: flex-start; /* Aligne ses messages à gauche */
+}
+
+/* --- Le design des bulles --- */
+.message-bubble {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    position: relative;
+}
+
+/* Mes bulles (Vertes) */
+.message-wrapper.me .message-bubble {
+    background: var(--accent);
+    color: #000000;
+    border-bottom-right-radius: 2px; /* Donne l'effet de petite queue de bulle */
+}
+
+/* Leurs bulles (Grises) */
+.message-wrapper.them .message-bubble {
+    background: var(--panel-hover);
+    color: var(--text-main);
+    border-bottom-left-radius: 2px;
+}
+
+.message-sender {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: var(--accent);
+}
+
+.message-wrapper.me .message-time {
+    color: rgba(0,0,0,0.6); /* Heure en gris foncé sur le fond vert */
+}
+
+.message-time {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 6px;
+    text-align: right;
+    color: var(--text-muted);
+}
+
+/* --- Zone de saisie du message --- */
+.chat-input-area {
+    padding: 1rem;
+    background: #141414; /* Fond un poil plus sombre pour séparer la zone */
+    border-top: 1px solid var(--panel-hover);
+}
+
+.chat-form {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.chat-form textarea {
+    flex-grow: 1; /* Le champ texte prend toute la place restante */
+    margin-bottom: 0;
+    resize: none; /* Empêche l'utilisateur d'agrandir la zone de texte à l'infini */
+    border-radius: 500px; /* Champ arrondi style moderne */
+    padding: 12px 20px;
+}
+
+.chat-form .btn {
+    white-space: nowrap; /* Empêche le texte du bouton de passer sur deux lignes */
+}
