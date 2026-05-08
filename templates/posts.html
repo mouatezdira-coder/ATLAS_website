@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="main-container">
+    
+    <div class="page-header">
+        <div>
+            <h1>Système de Communication</h1>
+            <p class="text-muted">Transmission des journaux de bord de la communauté ATLAS</p>
+        </div>
+        
+        {% if session.user_id %}
+        <div class="mt-2">
+            <a href="{{ url_for('create_post') }}" class="btn btn-primary">
+                [+ NOUVELLE ENTRÉE]
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if posts %}
+    <div class="posts-feed mt-4">
+        {% for post in posts %}
+        <div class="card post-card">
+            
+            <div class="post-header">
+                <div class="avatar">{{ post[5][0].upper() }}</div>
+                <div class="post-meta">
+                    <a href="{{ url_for('profile', user_id=post[4]) }}" class="author-name">
+                        USER_{{ post[5].upper() }}
+                    </a>
+                    <span class="post-date">LOG DATE: {{ post[3].strftime('%d/%m/%Y') if post[3] else 'UNKNOWN' }}</span>
+                </div>
+            </div>
+            
+            <div class="post-content mt-2 mb-2">
+                <p>{{ post[1] }}</p>
+            </div>
+            
+            {% if post[2] %}
+            <div class="post-tags mb-2">
+                {% for tag in post[2].split(',') %}
+                <span class="tag">#{{ tag.strip().upper() }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="post-actions">
+                <button class="action-btn">APPROUVER [0]</button>
+                <button class="action-btn">RÉPONDRE [0]</button>
+                <button class="action-btn">PARTAGER</button>
+            </div>
+            
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    
+    <div class="card text-center mt-4">
+        <p>Base de données des communications vide...</p>
+        {% if session.user_id %}
+        <a href="{{ url_for('create_post') }}" class="btn btn-secondary mt-2">
+            Initier la première transmission
+        </a>
+        {% else %}
+        <p class="mt-2">
+            <a href="{{ url_for('login') }}">Connectez-vous</a> pour accéder au réseau.
+        </p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
