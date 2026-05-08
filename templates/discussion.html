@@ -1,19 +1,49 @@
 {% extends "layout.html" %}
 {% block content %}
-<div>
-    <h1>Discussion avec {{ receiver_name[0] }}</h1>
-    <div class="messages">
-        {% for message in messages %}
-            <div class="message">
-                <strong>{{ message[2] }}:</strong> {{ message[0] }} <em>({{ message[1] }})</em>
-            </div>
-        {% endfor %}
+<div class="main-container">
+    
+    <div class="chat-header">
+        <a href="{{ url_for('discussions') }}" class="btn btn-secondary btn-small">← Retour</a>
+        <h2>CANAL SÉCURISÉ : {{ receiver_name[0] }}</h2>
     </div>
-    
-    <form action="{{ url_for('send_message', receiver_id=receiver_id) }}" method="POST">
-        <textarea name="message" placeholder="Votre message..." required></textarea><br>
-        <button type="submit">Envoyer</button>
-    </form>
-    
+
+    <div class="chat-box">
+        
+        <div class="chat-messages" id="chatWindow">
+            {% for message in messages %}
+                
+                {% if message[2] == session.pseudo %}
+                    <div class="message-wrapper me">
+                        <div class="message-bubble">
+                            <p class="message-text">{{ message[0] }}</p>
+                            <span class="message-time">{{ message[1] }}</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="message-wrapper them">
+                        <div class="message-bubble">
+                            <span class="message-sender">{{ message[2] }}</span>
+                            <p class="message-text">{{ message[0] }}</p>
+                            <span class="message-time">{{ message[1] }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                
+            {% endfor %}
+        </div>
+        
+        <div class="chat-input-area">
+            <form action="{{ url_for('send_message', receiver_id=receiver_id) }}" method="POST" class="chat-form">
+                <textarea name="message" placeholder="Transmission de données..." required rows="1"></textarea>
+                <button type="submit" class="btn btn-primary">ENVOYER</button>
+            </form>
+        </div>
+
+    </div>
 </div>
+
+<script>
+    var chatWindow = document.getElementById("chatWindow");
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+</script>
 {% endblock %}
