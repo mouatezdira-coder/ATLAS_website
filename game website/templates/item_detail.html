@@ -1,0 +1,171 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+  <div>
+    <div>
+      <h1>{{ item[1] }}</h1>
+      <span>{{ item[3].upper() }}</span>
+    </div>
+    <a href="{{ url_for('items') }}">← Retour aux items</a>
+  </div>
+
+  <div>
+    <!-- Item Information -->
+    <div>
+      <div>
+        <h2>Informations</h2>
+        
+        <div>
+          <label>Type d'item:</label>
+          <p>{{ item[2] }}</p>
+        </div>
+        
+        <div>
+          <label>Rareté:</label>
+          <p>{{ item[3] }}</p>
+        </div>
+        
+        {% if item[4] %}
+        <div>
+          <label>Zone de Drop:</label>
+          <p>{{ item[4] }}</p>
+        </div>
+        {% endif %}
+        
+        {% if item[5] %}
+        <div>
+          <label>Description:</label>
+          <p>{{ item[5] }}</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Price History and Listings -->
+    <div>
+      <!-- Price History -->
+      {% if price_history %}
+      <div>
+        <h2>Historique des Prix</h2>
+        <div >
+          <div>
+            <span>Prix Moyen:</span>
+            <span>{{ "%.2f"|format(avg_price) }} gold</span>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="item-detail-container">
+    <div class="card" style="margin-top: 20px; padding: 20px;">
+        <h2>Évolution du Prix (Gold)</h2>
+        <div style="height: 300px;">
+            <canvas id="priceChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    
+    // Injecting the data from Flask/Jinja
+    const labels = {{ graph_labels | tojson }};
+    const data = {{ graph_values | tojson }};
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Prix de l\'objet',
+                data: data,
+                borderColor: '#3a7bd5', // Deep blue color
+                backgroundColor: 'rgba(58, 123, 213, 0.1)',
+                borderWidth: 3,
+                tension: 0.3, // Makes the line curved
+                fill: true,
+                pointBackgroundColor: '#00d2ff'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                    ticks: { color: '#666' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: '#666' }
+                }
+            },
+            plugins: {
+                legend: { display: false } // Hides the legend for a cleaner look
+            }
+        }
+    });
+</script>
+        </div>
+      </div>
+      {% else %}
+      <div>
+        <h2>Historique des Prix</h2>
+        <p>Aucun historique de prix disponible pour cet item.</p>
+      </div>
+      {% endif %}
+      <!-- Active Listings -->
+      {% if listings %}
+      <div>
+        <h2>Annonces Actives</h2>
+        <div>
+          <div>
+            <div>Vendeur</div>
+            <div>Type</div>
+            <div>Quantité</div>
+            <div>Prix Unitaire</div>
+            <div>Date</div>
+            <div>Action</div>
+          </div>
+          
+          {% for listing in listings %}
+          <div>
+            <div>
+              <a href="{{ url_for('profile', user_id=listing[1]) }}">
+                {{ listing[2] }}
+              </a>
+            </div>
+            <div>
+              <span>{{ listing[3] }}</span>
+            </div>
+            <div>{{ listing[4] }}</div>
+            <div>{{ listing[5] }} gold</div>
+            <div>{{ listing[6].strftime('%d/%m/%Y') if listing[6] else 'N/A' }}</div>
+            <div>
+              <div>
+              {% if listing[1] != session.user_id %}
+              <form action="{{ url_for('buy_item', listing_id=listing[0]) }}" method="POST" onsubmit="return confirm('Acheter cet item pour {{ listing[5] * listing[4] }} gold ?');">
+                <button type="submit" style="background-color: #3a7bd5; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">
+                  Acheter
+                </button>
+              </form>
+              {% else %}
+                <span style="color: gray; font-size: 0.9em;">Votre annonce</span>
+              {% endif %}
+            </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <div>
+        <h2>Annonces Actives</h2>
+        <p>Aucune annonce active pour cet item.</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
