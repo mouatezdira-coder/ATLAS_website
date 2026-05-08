@@ -3,7 +3,8 @@ import os
 import db
 from datetime import timedelta, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from dotenv import load_dotenv
+load_dotenv()
 # Création de l'application Flask
 app = Flask(__name__)
 app.secret_key = 'projet_thewave_secret'
