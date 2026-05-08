@@ -1,12 +1,15 @@
 import psycopg2
+import os
 def connect():
     try:
         conn = psycopg2.connect(
-            host="aws-1-eu-west-3.pooler.supabase.com", 
-            database="postgres",                      
-            user="postgres.djkkiehllzhmawwstqcu",        
-            password="mouatezGustave#18",           
-            port="6543"                               
+            # On récupère les infos depuis les variables d'environnement
+            host=os.environ.get("DB_HOST"),
+            database="postgres",
+            user=os.environ.get("DB_USER"),
+            password=os.environ.get("DB_PASSWORD"),
+            port="6543",
+            sslmode="require"  # Très important pour le cloud !
         )
         return conn
     except Exception as e:
