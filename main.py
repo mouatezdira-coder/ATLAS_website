@@ -239,6 +239,22 @@ def posts():
     
     return render_template('posts.html', posts=all_posts)
 
+@app.route('/my_posts')
+def my_posts():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    
+    user_posts = execute_query("""
+        SELECT p.idp, p.contenu, p.hashtags, p.post_date, j.idj, j.pseudo
+        FROM post p
+        JOIN joueur j ON p.idj = j.idj
+        WHERE j.idj = %s
+        ORDER BY p.post_date DESC
+    """, (session['user_id'],))
+    
+    return render_template('my_posts.html', posts=user_posts)
+
+
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():
     if 'user_id' not in session:
