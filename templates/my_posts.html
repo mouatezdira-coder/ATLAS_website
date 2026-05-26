@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <title>My Posts</title>
+
+    <h1>My Posts</h1>
+
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+        <div class="card post-card">
+            
+            <div class="post-header">
+                <div class="avatar">{{ post[5][0].upper() }}</div>
+                <div class="post-meta">
+                    <a href="{{ url_for('profile', user_id=post[4]) }}" class="author-name">
+                        USER_{{ post[5].upper() }}
+                    </a>
+                    <span class="post-date">LOG DATE: {{ post[3].strftime('%d/%m/%Y') if post[3] else 'UNKNOWN' }}</span>
+                </div>
+            </div>
+            
+            <div class="post-content mt-2 mb-2">
+                <p>{{ post[1] }}</p>
+            </div>
+            
+            {% if post[2] %}
+            <div class="post-tags mb-2">
+                {% for tag in post[2].split(',') %}
+                <span class="tag">#{{ tag.strip().upper() }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            
+        </div>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
+
+{%endblock %}
