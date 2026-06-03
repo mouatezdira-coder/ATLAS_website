@@ -138,10 +138,14 @@
               <form action="{{ url_for('buy_item', listing_id=listing[0]) }}" method="POST" onsubmit="return confirm('Acheter cet item pour {{ listing[5] * listing[4] }} gold ?');">
                 <button type="submit" style="background-color: #3a7bd5; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;">
                   Acheter
+
+                  
                 </button>
               </form>
               {% else %}
-                <span style="color: gray; font-size: 0.9em;">Votre annonce</span>
+                <span style="color: gray; font-size: 0.9em;">Votre annonce
+                
+                </span>
               {% endif %}
             </div>
             </div>
