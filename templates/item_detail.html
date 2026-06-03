@@ -119,28 +119,19 @@
       <div>
         <h2>Annonces Actives</h2>
         <div>
-          <div>
-            <div>Vendeur</div>
-            <div>Type</div>
-            <div>Quantité</div>
-            <div>Prix Unitaire</div>
-            <div>Date</div>
-            <div>Action</div>
-          </div>
-          
           {% for listing in listings %}
           <div>
-            <div>
+            <div>Vendeur : 
               <a href="{{ url_for('profile', user_id=listing[1]) }}">
                 {{ listing[2] }}
               </a>
             </div>
             <div>
-              <span>{{ listing[3] }}</span>
+              <span>Type : {{ listing[3] }}</span>
             </div>
-            <div>{{ listing[4] }}</div>
-            <div>{{ listing[5] }} gold</div>
-            <div>{{ listing[6].strftime('%d/%m/%Y') if listing[6] else 'N/A' }}</div>
+            <div>Quantité : {{ listing[4] }}</div>
+            <div>Prix Unitaire : {{ listing[5] }} gold</div>
+            <div>Date : {{ listing[6].strftime('%d/%m/%Y') if listing[6] else 'N/A' }}</div>
             <div>
               <div>
               {% if listing[1] != session.user_id %}
