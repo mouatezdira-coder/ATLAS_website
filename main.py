@@ -452,7 +452,7 @@ def discussion(receiver_id):
             FROM discussion d
             JOIN joueur j ON d.sender = j.idj
             WHERE (d.sender = %s AND d.receiver = %s) OR (d.sender = %s AND d.receiver = %s)
-            ORDER BY d.date_sent DESC
+            ORDER BY d.date_sent ASC
     """, (session['user_id'], receiver_id, receiver_id, session['user_id']))
         receiver_name = execute_query("SELECT pseudo FROM joueur WHERE idj = %s", (receiver_id,), fetch_one=True)
 
